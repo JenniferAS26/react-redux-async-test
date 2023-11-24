@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCharactersFromApi, login } from '../../store/actions'
+import { getCharactersFromApi, login, logout } from '../../store/actions'
 import { setCharacterSelected } from '../../store/reducer'
 
 const App = () => {
@@ -52,8 +52,9 @@ const App = () => {
         onChange={(event) => setPassword(event.target.value)} 
       />
       <button type='button' onClick={() => handleSubmit()}>send</button>
+      <button type='button' onClick={() => dispatch(logout())}>sign out</button>
     </form>
-    <h1>El usuario logueado es {user?.email}</h1>
+    <h1>El usuario loggeado es {user?.email || 'no hay usuario loggeado'}</h1>
   </>)
 }
 

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { setCharacters, setUser } from './reducer'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth } from '../../firebaseconfig'
 
 export const login = ( email, password ) => {
@@ -9,6 +9,17 @@ export const login = ( email, password ) => {
       const response = await signInWithEmailAndPassword(auth, email, password)
       console.log('response', response.user)
       dispatch(setUser(response.user))
+    } catch (error) {
+      console.warn(error)
+    }
+  }
+}
+
+export const logout = () => {
+  return async ( dispatch ) => {
+    try {
+      await signOut(auth)
+      dispatch(setUser(null))
     } catch (error) {
       console.warn(error)
     }
